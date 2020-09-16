@@ -1,6 +1,7 @@
 $(function(){
     // 取值
-    let uId = 12;
+    
+    let uId = $.cookie('userId');//用户id
     let oiStatus = window.location.href.split("=")[1];
     let cmdId = window.location.href.split("=")[2];
     let oiImage = window.localStorage.getItem('oiImage');

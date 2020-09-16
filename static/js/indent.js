@@ -1,11 +1,14 @@
 $(function(){
+    // let uid = $.cookie('userId');
+    let uid = 1;
+    $('.user-id').text(uid);
     //全部订单循环部分
     function allOrderFunction(){
         $.ajax({
             url: "http://192.168.0.118:8080/order/showAllOrder",
             type: "GET",
             datatype: "json",
-            data:{   "uid" : 1 ,
+            data:{   "uid" : uid,
                 "page" : 1},
             success: function (data) {
                 console.log(data)
@@ -37,7 +40,7 @@ $(function(){
             type: "GET",
             datatype: "json",
             data:{  "status" : odStatus,
-                "uid" : 1 ,
+                "uid" : uid,
                 "page" : 1},
             success: function (data){
                 showGoods(data.list);
@@ -331,7 +334,7 @@ $(function(){
                     type: "GET",
                     datatype:"json",
                     data:{"status" : odStatus,
-                        "uid" : 1,
+                        "uid" : uid,
                         "page" : page1},
                     success: function (data){
                         console.log(data)

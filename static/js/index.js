@@ -1,11 +1,16 @@
 // 判断用户是否登录
 $(function () {
   console.log($.cookie('userId'))
+  
   if ($.cookie('userId') !== undefined) {
     $('.go_login').empty()
     console.log('用户已登录')
     $('#person').click(function () {
       window.location.href = '../templates/person.html'
+    });
+    // 跳转我的订单页yz
+    $('#order').click(function(){
+      window.location.href='../templates/indent.html'
     })
   } else {
     console.log('用户未登录')
