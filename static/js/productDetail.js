@@ -21,9 +21,9 @@ $(document).ready(function () {
     //渲染页面，获取商品详情数据
     function show_detail(){
         $.ajax({
-            url: "http://192.168.0.107:8502/commodityDetails",
+            url: "http://192.168.0.110:8502/commodityDetails",
             type: "post",
-            data:{"cmdId" : shopId},
+            data:{"cmdId" : 1},
             dataType: "json",
             success: function(data){
                 $(".word_box_h1").text(data.cmdName)
@@ -195,12 +195,14 @@ $(document).ready(function () {
             }
             console.log(spfId)
             $.ajax({
-                url: "http://192.168.0.117:8080/carts/add/to/cart",
+                url: "http://192.168.0.124:8989/carts/add/to/cart",
                 type: "post",
-                data:{'spfId':spfId,'amount':$('.num').val(),'uid':100},
+                data:{'spfId':spfId,'amount':$('.num').val(),'uId':100},
                 dataType: "json",
                 success: function(data){
-
+                        if(data == false){
+                            layer.msg("商品没有库存,加入失败");
+                        }
                 },
                 error: function(){
                     // alert("获取失败");

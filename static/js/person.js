@@ -161,38 +161,38 @@ $(document).ready(function () {
 
    var adId = ''
    //渲染页面，获取收货地址数据
-   function getAddress(){
+   function getAddress() {
       $.ajax({
          url: "http://192.168.0.77:8080/address/getAddress",
          type: "post",
-         data: { "uId": uId},
+         data: { "uId": 1 },
          dataType: "json",
          success: function (data) {
             var str = "";
             $('.address_bottom_box').html('')
             for (i = 0; i < data.length; i++) {
-               str +='<div class="address-news">' +
-                        '<div class="news" >' +
-                           '<div>收货人：' + data[i].adUser + '</div>' +
-                           '<div>电话：' + data[i].adPhone + '</div>' +
-                           '<div>地址：' + data[i].adAddress + '</div>' +
-                        '</div>' +
-                        '<div  class="operate">' +
-                           '<div   data-adId='+data[i].adId +' data-toggle="modal" data-target="#corretDressModal" class="corretBtn">修改</div>' +
-                           '<div   data-adId='+data[i].adId +' class="deleteAddress">删除</div>' +
-                        '</div>' +
-                     '</div>'
+               str += '<div class="address-news">' +
+                  '<div class="news" >' +
+                  '<div>收货人：' + data[i].adUser + '</div>' +
+                  '<div>电话：' + data[i].adPhone + '</div>' +
+                  '<div>地址：' + data[i].adAddress + '</div>' +
+                  '</div>' +
+                  '<div  class="operate">' +
+                  '<div   data-adId=' + data[i].adId + ' data-toggle="modal" data-target="#corretDressModal" class="corretBtn">修改</div>' +
+                  '<div   data-adId=' + data[i].adId + ' class="deleteAddress">删除</div>' +
+                  '</div>' +
+                  '</div>'
 
             }
             $('.address_bottom_box').append(str)
             //删除地址
-            $(".deleteAddress").on('click',function(e){
+            $(".deleteAddress").on('click', function (e) {
                var event = e || window.event;
                adId = event.target.getAttribute('data-adId')
                $.ajax({
                   url: "http://192.168.0.77:8080/address/deleteAddress",
                   type: "post",
-                  data: {uId:uId,adId:adId},
+                  data: { uId: uId, adId: adId },
                   dataType: "json",
                   success: function (data) {
                      if (data == 500) {
@@ -204,10 +204,10 @@ $(document).ready(function () {
                   },
                })
             })
-            $('.corretBtn').on('click',function(e){
+            $('.corretBtn').on('click', function (e) {
                var event = e || window.event;
                adId = event.target.getAttribute('data-adId')
-               console.log(adId,22)
+               console.log(adId, 22)
             })
             //点击修改获取地址信息
             $('.address_bottom_box').on('click', '.address-news', function () {
@@ -226,7 +226,7 @@ $(document).ready(function () {
    }
    //点击收货地址获取收货地址数据
    $('#getAddress').click(function () {
-       getAddress()
+      getAddress()
    })
 
    //添加地址按钮事件
@@ -236,14 +236,15 @@ $(document).ready(function () {
       $('.dress').val('')
       $('.person').val('')
       $('.phoneNumber').val('')
+      adId = ''
    })
    //修改地址按钮事件
    $('#corretDress').click(function (e) {
-      if($('.corretDress').text() == '添加'){
+      if ($('.corretDress').text() == '添加') {
          $.ajax({
             url: "http://192.168.0.77:8080/address/insertOrUpData",
             type: "post",
-            data: {uId:uId,adAddress:$('.dress').val(), adUser: $('.person').val(),adPhone: $('.phoneNumber').val()},
+            data: { uId: uId, adAddress: $('.dress').val(), adUser: $('.person').val(), adPhone: $('.phoneNumber').val() },
             dataType: "json",
             success: function (data) {
                if (data == 500) {
@@ -255,11 +256,11 @@ $(document).ready(function () {
                }
             },
          })
-      }else{
+      } else {
          $.ajax({
             url: "http://192.168.0.77:8080//address/insertOrUpData",
             type: "post",
-            data: {uId:uId,adId:adId,adAddress:$('.dress').val(),adUser: $('.person').val(),adPhone: $('.phoneNumber').val()},
+            data: { uId: uId, adId: adId, adAddress: $('.dress').val(), adUser: $('.person').val(), adPhone: $('.phoneNumber').val() },
             dataType: "json",
             success: function (data) {
                if (data == 500) {
@@ -276,28 +277,28 @@ $(document).ready(function () {
 
    // 百度地图API功能
    var map = new BMap.Map("allmap");
-   var point = new BMap.Point(121.66149,29.890624);
-   map.centerAndZoom(point,16);
+   var point = new BMap.Point(121.66149, 29.890624);
+   map.centerAndZoom(point, 16);
    map.addOverlay(new BMap.Marker(point));
    map.panBy(400, 200)
-   map.enableScrollWheelZoom(); 
+   map.enableScrollWheelZoom();
    // 创建地址解析器实例
    var myGeo = new BMap.Geocoder();
-   console.log(myGeo)
    // 将地址解析结果显示在地图上,并调整地图视野百度
-  $('.dress').blur(function(){
+   $('.dress').blur(function () {
       myGeo.getPoint($('.dress').val(), function (point) {
          if (point) {
-            map.centerAndZoom(point,19);
+            map.centerAndZoom(point, 19);
             map.addOverlay(new BMap.Marker(point));
             var pointA = new BMap.Point(121.66149, 29.890624);  // 创建点坐标A--大渡口区
             var pointB = new BMap.Point(point.lng, point.lat);  // 创建点坐标B--江北区
-            if(map.getDistance(pointA,pointB).toFixed(2)>3000){
-                     console.log(1)
-                     layer.msg('超出配送范围')
-                     $('#corretDress').attr('disabled',true)
-            }else{   console.log(2)
-                     $('#corretDress').attr('disabled',false)
+            if (map.getDistance(pointA, pointB).toFixed(2) > 3000) {
+               console.log(1)
+               layer.msg('超出配送范围')
+               $('#corretDress').attr('disabled', true)
+            } else {
+               console.log(2)
+               $('#corretDress').attr('disabled', false)
             }
          } else {
             alert("您选择地址没有解析到结果!");
@@ -345,7 +346,7 @@ $(document).ready(function () {
          $.ajax({
             url: "http://192.168.0.77:8080/user/verify",
             type: "post",
-            data: { type: 'email', oldNumber: $('#person_phone').text(), number: $('#person_newPhone3').val(), uId:uId, code: $('#code3').val() },
+            data: { type: 'email', oldNumber: $('#person_phone').text(), number: $('#person_newPhone3').val(), uId: uId, code: $('#code3').val() },
             dataType: "json",
             success: function (data) {
                if (data == false) {
@@ -399,7 +400,7 @@ $(document).ready(function () {
          $.ajax({
             url: "http://192.168.0.77:8080/user/verify",
             type: "post",
-            data: { type: 'mail', number: $('#person_newPhone4').val(), oldMail: $('#person_email').text(), uId:uId, code: $('#code4').val() },
+            data: { type: 'mail', number: $('#person_newPhone4').val(), oldMail: $('#person_email').text(), uId: uId, code: $('#code4').val() },
             dataType: "json",
             success: function (data) {
                if (data == 200) {
@@ -453,7 +454,7 @@ $(document).ready(function () {
          $.ajax({
             url: "http://192.168.0.77:8080/user/verify",
             type: "post",
-            data: { type: 'number', mail: $('#person_newMail').val(), oldNumber: $('#person_phone').text(), uId:uId, code: $('#code3').val() },
+            data: { type: 'number', mail: $('#person_newMail').val(), oldNumber: $('#person_phone').text(), uId: uId, code: $('#code3').val() },
             dataType: "json",
             success: function (data) {
                if (data == false) {
@@ -507,7 +508,7 @@ $(document).ready(function () {
          $.ajax({
             url: "http://192.168.0.77:8080/user/verify",
             type: "post",
-            data: { type: 'mail', mail: $('#person_newMail1').val(), oldMail: $('#person_email').text(), uId:uId, code: $('#code1').val() },
+            data: { type: 'mail', mail: $('#person_newMail1').val(), oldMail: $('#person_email').text(), uId: uId, code: $('#code1').val() },
             dataType: "json",
             success: function (data) {
                layer.msg('修改成功');
@@ -533,7 +534,7 @@ $(document).ready(function () {
          $.ajax({
             url: "http://192.168.0.77:8080/user/updataUserPassWord",
             type: "post",
-            data: { uId:uId, oldPasd: $('#oldPassword').val(), newPasd: $('#newPassword').val() },
+            data: { uId: uId, oldPasd: $('#oldPassword').val(), newPasd: $('#newPassword').val() },
             dataType: "json",
             success: function (data) {
                layer.msg('修改成功');
