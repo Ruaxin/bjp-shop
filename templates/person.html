@@ -25,8 +25,8 @@
 <script src="https://cdn.bootcss.com/moment.js/2.24.0/moment-with-locales.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
-<!-- 获取坐标的引入
-<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=200f3c210689a305f45aca6e0c7d3466"></script> -->
+<!-- 获取坐标 -->
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=1uGSONnl0vOaDWKxqUQXPfiihyjVyXnA"></script>
 
 <script src="../static/js/person.js"></script>
 </head>
@@ -87,7 +87,6 @@
                     <div class="corretPerson">
                         <!-- <iframe id="iframe_display" name="iframe_display" style="display: none;"></iframe>  -->
                         <form action="http://192.168.0.128:8080/user/updataUser" enctype="multipart/form-data" method="post" id="person_form" >
-                            <input  name="uId" id="uId" type="hidden" value="">
                             <div style="text-align: center;">
                                 <input type="file"  style="display:none" id="uploadfile" name="file" accept="image/*"/>
                                 <img src="" alt=""  class="img-circle" id="image">
@@ -141,29 +140,30 @@
             <!-- 头部的导航和添加地址按钮 -->
                 <div class="right_top_box">
                     <span>收货地址</span>
-                    <span style="float: right;cursor: pointer;" class="glyphicon glyphicon-plus" id="addbtn"  data-toggle="modal" data-target="#corretDress">添加地址</span>
+                    <span style="float: right;cursor: pointer;" class="glyphicon glyphicon-plus" id="addbtn"  data-toggle="modal" data-target="#corretDressModal">添加地址</span>
                 </div>
                 <div class="address_bottom_box">
                 </div> 
                 <!--收货人、电话、地址， 修改、删除的弹窗 -->
-                <div class="modal fade" id="corretDress" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal fade" id="corretDressModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel" style="display: inline-block;">修改地址</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <textarea type="text" placeholder="地址" class="dress"></textarea>
-                            <input type="text" placeholder="收货人" class="person">
-                            <input type="text" placeholder="电话" class="phoneNumber">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                            <button type="button" class="btn btn-primary" id='corretDress'>修改</button>
-                        </div>
+                        <div class="modal-content" style="width: 800px;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel" style="display: inline-block;">修改地址</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body address_lable">
+                                <div id="allmap"></div>
+                                <div><label>地址：</label><input type="text" placeholder="请输入"" class="dress"></input></div>
+                                <div><label>收货人：</label><input type="text" placeholder="请输入" class="person"></div>
+                                <div><label>电话：</label><input type="text" placeholder="请输入" class="phoneNumber" onkeyup="value=value.replace(/[^\d]/g,'')" maxlength=11></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                <button type="button" class="btn btn-primary" id='corretDress'>修改</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -299,3 +299,5 @@
     </div>
 </body>
 </html>
+<script type="text/javascript">
+</script>

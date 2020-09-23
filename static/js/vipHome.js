@@ -1,16 +1,13 @@
 $(document).ready(function(){
     function getVipNews(){
         $.ajax({
-            url: "http://192.168.0.109:8989/vipHome",
+            url: "http://192.168.0.110:8989/vipHome",
             type: "post",
             dataType: "json",
-            data:{UId:1},
-            // xhrFields: {
-            //     withCredentials: true,
-            // },
+            data:{UId:10},
             success: function(data){
                 $('.offerBox').html('')
-                var str ="";
+                let str ="";
                 for(i =0 ;i < data.bjfCommodityList.length;i++){ 
                     str += '<div class="one_offer">'+
                                 '<img src="'+data.bjfCommodityList[i].cmdImage+'" alt="">'+
@@ -24,7 +21,7 @@ $(document).ready(function(){
                 var right = "";
                 for(j =0 ;j < data.bjfMenberRightsList.length;j++){ 
                     right += '<div>'+
-                                '<img src="images/17.png" class="img-circle" alt="">'+
+                                '<img src="../static/images/17.png" class="img-circle" alt="">'+
                                 '<span>'+data.bjfMenberRightsList[j].mrContent+'</span>'+
                              '</div>'
                 }
@@ -33,7 +30,10 @@ $(document).ready(function(){
                 var  vipNew = ''
                 if(data.memberRecord == 0){
                     vipBtn = '<a class="vipBtnEnter">开通</a>'
-                }else if(data.menberRecord == 1 ||data.memberState == 1 ){
+                }else if(data.memberRecord == null){
+                    vipBtn = '<a class="vipBtnEnter">去登录</a>'
+                }
+                else if(data.menberRecord == 1 ||data.memberState == 1 ){
                     vipBtn = '<a class="vipBtnRenew">续费</a>'
                     vipNew = '<div class="vipName">'+
                                 '<span style="font-size: 24px;">'+data.uaccount+'</span>'+
@@ -42,7 +42,7 @@ $(document).ready(function(){
                                 '<div class="mbEtime">'+data.mbEtime+'到期</div>'
                     $('.userHead').attr('src',data.uheadSculpture)
                  }else if(data.menberRecord == 1 ||data.memberState == 0 ){
-                    vipBtn = '<a class="vipBtnRenew">续费</a>'
+                    vipBtn = '<a class="vipBtnRenew" >续费</a>'
                     vipNew = '<div class="vipName">'+
                                 '<span style="font-size: 24px;">'+data.uaccount+'</span>'+
                              '</div>'+

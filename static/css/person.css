@@ -55,6 +55,10 @@
 	background-color: #ffffff;
 	border-radius: 10px;
 }
+#logOut{
+    height: 60px;
+    line-height: 60px
+}
 .right_box{
     width: 1220px;
     margin-left: 15px;
@@ -508,4 +512,7 @@
     margin: auto;
     text-align: center;
     cursor: pointer;
+}
+.nav-tabs{
+    margin-left: 0;
 }

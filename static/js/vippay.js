@@ -75,7 +75,7 @@ $(function () {
                         type: "GET",
                         data: {"mbpId":num,"UId":1},
                         success: function (data) {
-                           alert("success")
+                           //跳转到支付方式界面
                         }
                     })
                 });
