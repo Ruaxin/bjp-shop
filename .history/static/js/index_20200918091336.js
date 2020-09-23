@@ -1,68 +1,103 @@
+// 判断用户是否登录
 $(function () {
-   // 商品搜索
-   function ajax() {
-    $.get({
-      url: 'http://192.168.0.123:8080/demo/commodity/elasticsearch',
-      data: {'key': $('.search-text').val()},
-      xhrFields: {
-        'Access-Control-Allow-Origin': '*',
-      },
+  console.log($.cookie('userId'))
   
-      success: function (data) {
-        console.log('data：' + JSON.stringify(data))
-        //储存到游览器端localstorage
-        window.localStorage.setItem('product', JSON.stringify(data))
-      }
+  if ($.cookie('userId') !== undefined) {
+    $('.go_login').empty()
+    console.log('用户已登录')
+    $('#person').click(function () {
+      window.location.href = '../templates/person.html'
+    });
+    // 跳转我的订单页yz
+    $('#order').click(function(){
+      window.location.href='../templates/indent.html'
+    })
+  } else {
+    console.log('用户未登录')
+    $('.exit_login').empty()
+    $('.rightText').click(function () {
+      window.location.href = '../templates/Login.html'
     })
   }
-  
-  //点击搜索跳转到商品搜索页面
-  $(function () {
-    $('#btn1').click(function () {
-      if ($('.search-text').val() == '') {
-        alert('搜索内容不可为空')
-      } else {
-        // 给超链接添加地址
-        $('#checka').attr('href', '../templates/SearchProduct.html')
-        // 超链接同时触发点击事件
-        $('#checka')[0].click()
-      }
-    })
+  //退出登录
+  $('.exit_login').click(function () {
+    $.cookie('userId', '', {expires: -1})
+    window.location.href = '../templates/Login.html'
   })
-  // 左侧导航栏
+})
+
+// 商品搜索
+function ajax() {
+  $.get({
+    url: 'http://192.168.0.123:8080/demo/commodity/elasticsearch',
+    data: {'key': $('.search-text').val()},
+    xhrFields: {
+      'Access-Control-Allow-Origin': '*',
+    },
+
+    success: function (data) {
+      console.log('data：' + JSON.stringify(data))
+      //储存到游览器端localstorage
+      window.localStorage.setItem('product', JSON.stringify(data))
+    }
+  })
+}
+
+//点击搜索跳转到商品搜索页面
+$(function () {
+  $('#btn1').click(function () {
+    if ($('.search-text').val() == '') {
+      alert('搜索内容不可为空')
+    } else {
+      // 给超链接添加地址
+      $('#checka').attr('href', '../templates/SearchProduct.html')
+      // 超链接同时触发点击事件
+      $('#checka')[0].click()
+    }
+  })
+})
+
+
+// 左侧导航栏
+$(function () {
   $.ajax({
-    url: 'http://192.168.0.108:8989/homePage/getTree',
+    url: 'http://192.168.0.107:8989/homePage/getTree',
     type: 'GET',
     datatype: 'json',
     success: function (data) {
-      var str = '';
+      var str = ''
       for (var i = 0; i < data.length; i++) {
-        var str1 = '';
-        var cgid = data[i].cgId;
+        var str1 = ''
+        var cgid = data[i].cgId
+
         for (var t = 0; t < data[i].next.length; t++) {
-          var str2 = '';
+          var str2 = ''
           for (var j = 0; j < data[i].next[t].next.length; j++) {
             var cgid2 = data[i].next[t].next[j].cgId
-            str2 += `<li ><a  class="navType" data-id="${cgid2}">${data[i].next[t].next[j].cgName} </a></li>`
-          };
-          str1 += `<ul class="navType-box">
-                    <li>${data[i].next[t].cgName}</li>
-                    <ul>${str2}</ul>
-                  </ul>`
-        };
-        str += `<li class="nav-list">
-                  <a class="navType" data-id="${cgid}">${data[i].cgName}</a>
-                  <ul class="hide-box">${str1}</ul>
-                </li>`
-      };
-      $('.nav-item').html(str);
+            str2 += '<li ><a  class="navType" data-id="' + cgid2 + '">' + data[i].next[t].next[j].cgName + '</a></li>'
+          }
+
+
+          str1 += '<ul class="navType-box">' +
+            '<li>' + data[i].next[t].cgName + '</li>' +
+            '<ul>' + str2 + '</ul>' +
+            '</ul>'
+        }
+        str += '<li class="nav-list">' +
+          '<a class="navType" data-id="' + cgid + '">' + data[i].cgName + '</a>' +
+          '<ul class="hide-box">' + str1 + '</ul>' +
+          '</li>'
+      }
+
+
+      $('.nav-item').html(str)
       $('.navType').on('click', function () {
         let Id = this.dataset.id
         console.log(Id)
         var url = '../../templates/menu.html?id=' + Id
         $('.navType').attr('href', url)
-      });
-      // 二级导航栏显示与隐藏
+      })
+
       function showFunction(index, dpy, tp) {
         $('.nav-list').eq(index).find('.hide-box').css('display', dpy)
         $('.nav-list').eq(index).find('.hide-box').stop().animate({top: tp + 'px'}, 'fast')
@@ -81,7 +116,7 @@ $(function () {
 
   //轮播图
   $.ajax({
-    url: 'http://192.168.0.108:8989/homePage/slideshow',
+    url: 'http://192.168.0.107:8989/homePage/slideshow',
     type: 'GET',
     datatype: 'json',
     success: function (data) {
@@ -92,6 +127,8 @@ $(function () {
         $('#banner-img').append(project)
         // $('.banner').eq(i).css("background-image","url("+Img+")")
       }
+
+
       var swiper = new Swiper('.swiper-container', {
         spaceBetween: 0,
         centeredSlides: true,
@@ -110,13 +147,14 @@ $(function () {
       })
     }
   })
-
 })
+
+
 // 商品数据传输
 $(function () {
   $.ajax({
     //json地址的值
-    url: 'http://192.168.0.108:8989/homePage/shouzhan',
+    url: 'http://192.168.0.107:8989/homePage/shouzhan',
     type: 'GET',
     datatype: 'json',
     success: function (data) {
@@ -125,12 +163,12 @@ $(function () {
       for (const a of data) {
         //project存储遍历的值 data-id一种传参方式
         project = `<a class="product" data-id=${a.cmdId}>
-                    <img src="${a.cmdImage}">
-                      <div class="text">
-                        <span class="textb">商品：${a.cmdName}</span><br>
-                        <span class="texta">价格：${a.cmdPrice}￥</span>
-                      </div> 
-                  </a>`
+                                   <img src="${a.cmdImage}">
+                                    <div class="text">
+                                        <span class="textb">商品：${a.cmdName}</span><br>
+                                        <span class="texta">价格：${a.cmdPrice}￥</span>
+                                    </div> 
+                            </a>`
         //字符串拼接追加到div中
         $('.middle').append(project)
       }
@@ -149,7 +187,7 @@ $(function () {
 //今日推荐图片
 $(function () {
   $.ajax({
-    url: 'http://192.168.0.108:8989/homePage/recommend',
+    url: 'http://192.168.0.107:8989/homePage/recommend',
     type: 'GET',
     datatype: 'json',
     success: function (data) {
@@ -172,7 +210,7 @@ $(function () {
 // 商品图片推荐（大小图）
 $(function () {
   $.ajax({
-    url: 'http://192.168.0.108:8989/homePage/hot',
+    url: 'http://192.168.0.107:8989/homePage/hot',
     type: 'GET',
     datatype: 'json',
     success: function (data) {

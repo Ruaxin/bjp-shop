@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>评价详情页</title>
+    <title>订单详情</title>
     <style type="text/css">
         html,body {margin: 0;padding: 0;height: 100%;width: 100%;}
         a {text-decoration: none;  color:inherit;}
@@ -14,7 +14,7 @@
         ol,ul {list-style: none;}
         caption,th {text-align: left;}
         h1,h2,h3,h4,h5,h6 {font-size: 100%;font-weight: normal;}
-        q:before,q:after {content: ;}
+        q:before,q:after {content: '';}
         abbr,acronym {border: 0;}
         body{
             font-family: "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -25,14 +25,13 @@
     <!-- 头尾样式 -->
     <link rel="stylesheet" href="../static/css/headEnd.css">
     <!-- 主体css文件 -->
-    <link rel="stylesheet" href="../static/css/evaluate.css">
+    <link rel="stylesheet" href="../static/css/details.css">
+     <!-- layer最新版本 CSS文件 -->
     <script src="../static/js/jquery-1.12.1.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
     <!--弹出框插件-->
     <script src="../layer/layer.js"></script>
-     <!-- 头尾js -->
-     <script src="../static/js/headEnd.js"></script>
-    <script src="../static/js/evaluate.js"></script>  
+    <script src="../static/js/details.js"></script>
 </head>
 <body>
     <div class=" box">
@@ -51,50 +50,123 @@
                 </div>
             </div>
         </div>
-        <!-- 评价详情 -->
-        <div class="evaluate-item-box">
-            <span>其他买家，需要你的建议哦！</span>
-            <div class="ya-box"></div>
-            <div class="same-flex evaluate-list-box ">
-                <div class="item-box">
-                    <img  alt="">
-                    <div></div>
-                </div>
-                <div class="item-list-box">
-                    <div class="initial-box" style="display: none;">
-                        <div class="initial-talk-box"><span>初次评论：</span><span class="comment-first"></span></div>
-                        <div class="initial-img-box"></div>
-                        <div class="initial-talk-box"><span>商家回复：</span><span class="merchant"></span></div>
+        <!-- 订单详情 -->
+        <div class="details-box">
+            <div class="details-title">订单详情</div>
+            <div class="details-list-box">
+                <div class="details-list">
+                    <div class="details-text">
+                        <div class="details-text-list1">1</div>
+                        <div class="details-text-list2">
+                            <div>提交订单</div>
+                            <div class="details-time orderTime"></div>
+                        </div>
                     </div>
-                    <form class="from-action" action="" method="post"  enctype="multipart/form-data" id="refund-form">
-                        <div class="evaluate-box">
-                            <textarea class="text-content" placeholder="请输入使用感受" name="" ></textarea>
-                            <input class="cmdId" name="cmdId" type="text" style="display: none;" value="">
-                            <input class="uId" name="uId" type="text" style="display: none;" value="">
-                            <input class="odDelid" name="odDelid" type="text" style="display: none;" value="">
-                            <div class="same-flex add-img-box">
-                                <input class="evaluate-Img" type="file" name="" style="display:none" id="uploadfile" accept="image/*"  multiple="multiple" value=""/>
-                                <div id="father"  class="same-flex">
-                                    <img src="../Img/addimg.jpeg" style="width: 52px; height: 52px;" id="image"/>
-                                </div>
-                                <span>(最多添加3张图片)</span>
-                            </div>
-                            <div class="choose-evaluate">评价:
-                                <label><input type="radio" name="eGrepStatus" value="0" checked="checked">好评</label>
-                                <label><input type="radio" name="eGrepStatus" value="1">差评</label>
-                            </div>   
-                        </div> 
-                    </form>
+                    <div class="details-border"></div>
+                </div>
+                <div class="details-list">
+                    <div class="details-text">
+                        <div class="details-text-list1">2</div>
+                        <div class="details-text-list2">
+                            <div>支付成功</div>
+                            <div class="details-time payTime"></div>
+                        </div>
+                    </div>
+                    <div class="details-border"></div>
+                </div>
+
+                <!-- <div class="details-list">
+                    <div class="details-text">
+                        <div class="details-text-list1">3</div>
+                        <div class="details-text-list2">
+                            <div>已发货</div>
+                            <div class="details-time">2020-7-20 09: 20: 30</div>
+                        </div>
+                    </div>
+                    <div class="details-border"></div>
+                </div>
+                <div class="details-list">
+                    <div class="details-text">
+                        <div class="details-text-list1">4</div>
+                        <div class="details-text-list2">
+                            <div>代签收</div>
+                            <div class="details-time"></div>
+                        </div>
+                    </div>
+                    <div class="details-border"></div>
+                </div> -->
+                <div class="details-list">
+                    <div class="details-text">
+                        <div class="details-text-list1">5</div>
+                        <div class="details-text-list2">
+                            <div>已完成</div>
+                            <div class="details-time accomplishTime"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="submit-btn">提交</div>
+
+            
+            <div class="order-details-box">
+                <div class="order-current-box">
+                    <div class="order-current-list">
+                        <span>当前订单状态:</span>
+                        <span class="state"></span>
+                    </div>
+                    <div class="order-current-list courier"></div> 
+                    <!-- <div>
+                        <span>还剩:</span>
+                        <span>6天12小时</span>
+                        <span>自动确认收货</span>
+                    </div>  -->
+                </div>  
+                <div class="order-message">订单信息</div>
+                <hr class="order-message-border"/>
+                <div class="order-message-list">
+                    <span>收货地址:</span>
+                    <span class="site"></span>
+                </div>
+                <div class="order-message-list">
+                    <span>订单单号:</span>
+                    <span class="number"></span>
+                </div>
+                <div class="order-message-list">
+                    <span>下单时间:</span>
+                    <span class="order-time"></span>
+                </div>
+                <div class="order-message-list">
+                    <span>支付时间:</span>
+                    <span class="pay-time"></span>
+                </div>
+                <div class="order-message-list">
+                    <span>支付方式:</span>
+                    <span class="pay-way"></span>
+                </div>
+                <!-- <div class="order-message-list">
+                    <span>发货时间:</span>
+                    <span>2020-7-20 09: 20: 30</span>
+                </div> -->
+            </div>
+            <div class="indent-right-box">
+                <div class="indent-title-box same-flex">
+                    <div class="commodity-list1">商品</div>
+                    <div class="same1">单价(元)</div>
+                    <div class="same1">数量</div>
+                    <div class="same1">商品操作</div>
+                    <div class="same1">实付款</div>
+                    <div class="same1">交易状态</div>
+                    <div class="same1">交易操作</div>
+                </div>
+                <div id="content"></div>
+            </div>
         </div>
+        
         <!--    尾部导航条-->
         <div class="bottem-nav-box">
           <div class="row clearfix bottem">
-        <!--        正品保障购物指南-->
+        <!--        正品保障+购物指南-->
                 <div class="col-md-12 column">
-        <!--            图标第一块文字-->
+        <!--            图标+第一块文字-->
                     <div class="bottem-text text1">
                         <img src="../Img/WechatIMG90.png">
                         <span>正品保障，提供发票</span><br><br>
@@ -107,7 +179,7 @@
                             <br><span>购物指南</span>
                         </div>
                     </div>
-        <!--            图标第二块文字-->
+        <!--            图标+第二块文字-->
                     <div class="bottem-text text1">
                         <img src="../Img/WechatIMG90.png">
                         <span>正品保障，提供发票</span><br><br>
@@ -120,7 +192,7 @@
                         <br><span>购物指南</span>
                         </div>
                     </div>
-        <!--            图标第三块文字-->
+        <!--            图标+第三块文字-->
                     <div class="bottem-text text1">
                         <img src="../Img/WechatIMG90.png">
                         <span>正品保障，提供发票</span><br><br>
@@ -133,7 +205,7 @@
                             <br><span>购物指南</span>
                         </div>
                     </div>
-        <!--            图标第四块文字-->
+        <!--            图标+第四块文字-->
                     <div class="bottem-text1 text1">
                         <img src="../Img/WechatIMG90.png">
                         <span>正品保障，提供发票</span><br><br>
@@ -168,6 +240,12 @@
                 </div>
             </div>
         </div>
-    </div>
+            
+        </div>
+
+
+
+    
 </body>
+
 </html>

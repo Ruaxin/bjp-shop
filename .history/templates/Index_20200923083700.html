@@ -16,10 +16,10 @@
     <script src="../static/js/bootstrap.js"></script>
     <!-- 轮播图js文件 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.1/js/swiper.min.js"></script>
-    <!-- 头尾js -->
-    <script src="../static/js/headEnd.js"></script>
     <script src="../static/js/index.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+
 </head>
 <body>
 <div class="box">
@@ -32,10 +32,16 @@
             </div>
             <div class="search">
                 <img src="../static/images/logo.png">
-                <div>
-                    <input type="text" class="search-text" name="key" onblur="ajax()">
-                    <button class="search-btn" id="btn1"><a id="checka">搜索</a></button>
-                </div>
+
+                 <input type="text" class="search-text"><button class="search-btn">搜索</button>
+
+            <div>
+            <input type="text" class="search-text" name="key" onblur="ajax()">
+            <button class="search-btn" id="btn1">
+                <a id="checka">搜索</a>
+            </button>
+            </div>
+
             </div>
         </div>
     </div>
@@ -53,17 +59,25 @@
             <div class="swiper-pagination"></div>
         </div>
     </div>
+
+
+
+    
     <!--    今日推荐+图片商品推荐-->
     <div class="middle-image">
-        <div class="tuijian-box">
-            <img src="../static/images/推荐5.jpg" height="160" width="210"/>
-            <div class="tuijian-box-2"></div>
-        </div>
+    <div class="tuijian-box">
+        <img src="../static/images/推荐5.jpg" height="160" width="210"/>
+        <div class="tuijian-box-2"></div>
+    </div>
 <!--        商品推荐-->
-        <div class="product-image"></div>
+    <div class="product-image">
+    </div>
     </div>
     <!--    主要商品推荐-->
-    <div class="row clearfix middle"></div>
+    <div class="row clearfix middle">
+
+
+    </div>
     <!--    尾部导航条-->
     <div class="bottem-nav-box">
         <div class="row clearfix bottem">
@@ -134,13 +148,20 @@
                 </ul>
                 <ul>
                     <span>地址：浙江省宁波市鄞州区柏庭养老管理集团主楼5楼 邮编：31500 电话00-000000000 邮箱：bangjifans.com</span>
+
                 </ul>
                 <ul>
                     <span>京ICP备08001421号京公网安备110108007702</span>
+
                 </ul>
             </div>
         </div>
     </div>
+
 </div>
+
 </body>
+
+
+
 </html>
