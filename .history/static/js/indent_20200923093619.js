@@ -51,6 +51,7 @@ $(function(){
     function showGoods(indentData){
         let str = '';
         let str2 = '';
+
         for(let i = 0;i < indentData.length; i++){
             let str1 = '';
             let str3 = '';
@@ -258,8 +259,7 @@ $(function(){
         $(".sales-return").click(function () {
             setTimeout(function(){
                 console.log(odDelid+','+oiId)
-                window.top.location.href = '../../templates/refund.html?id='+ odDelid + '=' + oiId;
-                // window.top.location.href = '../../templates/refund.html?id='+ odDelid +'=' + oiId;
+                window.top.location.href = '../../templates/refund.html?id='+ odDelid +'=' + oiId;
             },0);
         });
         //取消退货事件

@@ -58,28 +58,26 @@ $(function(){
         $("#uploadfile").click();
     });
     $("#uploadfile").change(function(){
-        let files = this.files;    //获取文件信息
-
-        if(files.length<4){
-            $.each(files,function(key,value){
-                //每次都只会遍历一个图片数据
-                let reader = new FileReader();  //调用FileReader
-                reader.onload = function(evt){   //读取操作完成时触发。
-                    if(num<3){
-                        $("#image").before('<img src="" style="width:50px;height:50px;margin-right:6px;"/>').
-                        siblings().eq(num).attr('src',evt.target.result);
-                        num++;
-                    };
-                    if(num == 3){
-                        $('#image').hide()
-                    }
+        var files=$(this)[0].files[0];    //获取文件信息
+        if(files)
+        {
+            var reader=new FileReader();  //调用FileReader
+            reader.onload=function(evt){   //读取操作完成时触发。
+                if(num<3){
+                    $("#image").before('<img src="" style="width:50px;height:50px;margin-right:6px;"/>').siblings().eq(num).attr('src',evt.target.result);
+                    num++;
+                };
+                if(num == 3){
+                    $('#image').hide()
                 }
-                reader.readAsDataURL(value); //将文件读取为 DataURL(base64)
-            })
-        }else{
-            alert("最多上传三张图片,请选择的图片不要大于四张！");
+            }
+            reader.readAsDataURL(files); //将文件读取为 DataURL(base64)
         }
-    });
+        else{
+            alert("上传失败");
+        }
+    })
+ 
 
     // 提交退款理由和照片
     $('.evaluate-btn').click(function(){

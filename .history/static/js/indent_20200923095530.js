@@ -258,8 +258,7 @@ $(function(){
         $(".sales-return").click(function () {
             setTimeout(function(){
                 console.log(odDelid+','+oiId)
-                window.top.location.href = '../../templates/refund.html?id='+ odDelid + '=' + oiId;
-                // window.top.location.href = '../../templates/refund.html?id='+ odDelid +'=' + oiId;
+                window.top.location.href = '../../templates/refund.html?id='+ odDelid +'=' + oiId;
             },0);
         });
         //取消退货事件

@@ -258,7 +258,6 @@ $(function(){
         $(".sales-return").click(function () {
             setTimeout(function(){
                 console.log(odDelid+','+oiId)
-                window.top.location.href = '../../templates/refund.html?id='+ odDelid + '=' + oiId;
                 // window.top.location.href = '../../templates/refund.html?id='+ odDelid +'=' + oiId;
             },0);
         });
