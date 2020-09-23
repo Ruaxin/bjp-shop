@@ -289,7 +289,7 @@ $(document).ready(function () {
       myGeo.getPoint($('.dress').val(), function (point) {
          if (point) {
             map.centerAndZoom(point, 19)
-            // mMapView.getOverlays().clear();
+            map.clearOverlays()
             map.addOverlay(new BMap.Marker(point));
             var pointA = new BMap.Point(121.66149, 29.890624);  // 创建点坐标A--大渡口区
             var pointB = new BMap.Point(point.lng, point.lat);  // 创建点坐标B--江北区
