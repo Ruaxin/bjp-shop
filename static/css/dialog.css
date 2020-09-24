@@ -4,17 +4,8 @@
   box-sizing: border-box;
 }
 
-#btnWrapper {
-  position: absolute;
-  top: -20px;
-  left: 1530px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
 #couponDialog {
-  margin: 20px 40px;
+  margin-bottom: 3px;
 }
 
 .btn:hover, .btn:focus, .btn:active, .btn:visited {
@@ -45,14 +36,16 @@
 }
 
 .couponValue {
-  margin-top: 10px;
-  font-size: 40px;
+  margin-top: 12px;
+  padding-left: 12px;
+  font-size: 20px;
   text-align: center;
   color: white;
 }
 
 .couponTime {
   margin-left: 10px;
+  padding-top: 16px;
   font-size: 16px;
   text-align: center;
   color: white;
@@ -77,5 +70,10 @@
   border: none;
   outline: none;
 }
+
+.noCoupon {
+  width: 100%;
+}
+
 
 

@@ -32,22 +32,30 @@
   <!--    头部导航条-->
   <div class="header-box">
     <div class="clearfix top">
-      <div class="col-md-12">
-        <span class="leftText">欢迎你！<a href="Login.html" class="go_login">去登录</a><a class="exit_login">退出</a></span>
-        <span class="rightText"><a href="Index.html">首页</a>|<a id="order">我的订单</a>|<a>我的购物车</a>|<a>个人中心</a></span>
+      <div class="col-md-12" style="padding: 0;">
+        <span class="leftText">欢迎你！
+          <a href="Login.html" class="go_login">去登录</a>
+          <a class="exit_login">退出</a>
+        </span>
+        <span class="rightText">
+          <a href="Index.html">首页</a>|
+          <a id="order">我的订单</a>|
+          <a>我的购物车</a>|
+          <a>个人中心</a>
+          <button type="button" class="btn btn-danger" id="couponDialog">领取优惠券</button>
+        </span>
+
       </div>
       <div class="search">
         <img src="../static/images/logo.png">
-        <div>
+        <div style="margin-right: 5px;">
           <input type="text" class="search-text" name="key" onblur="ajax()">
           <button class="search-btn" id="btn1"><a id="checka">搜索</a></button>
         </div>
       </div>
     </div>
   </div>
-  <div id="btnWrapper">
-    <button type="button" class="btn btn-danger" id="couponDialog">领取优惠券</button>
-  </div>
+
 
   <!-- 导航+轮播图 -->
   <div class="item-box">

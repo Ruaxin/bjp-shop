@@ -14,7 +14,7 @@ $(function(){
     } else {
       console.log('用户未登录')
       $('.exit_login').empty()
-      $('.rightText').click(function () {
+      $('.rightText a').click(function () {
         window.location.href = '../templates/Login.html'
       })
     }

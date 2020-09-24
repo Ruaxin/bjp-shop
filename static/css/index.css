@@ -318,7 +318,6 @@ body {
 /*头部右侧超链接文字*/
 .rightText {
   float: right;
-  width: 251px;
   height: 37px;
   line-height: 37px;
   font-family: SimHei;
