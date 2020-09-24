@@ -17,11 +17,12 @@ $(document).ready(function () {
     });
     var spfList = []
     var test =window.location.href;
-    var shopId = test.split("?id=")[1];
+    // var shopId = test.split("?id=")[1];
+    var shopId = 1;
     //渲染页面，获取商品详情数据
     function show_detail(){
         $.ajax({
-            url: "http://192.168.0.110:8502/commodityDetails",
+            url: "http://192.168.0.128:8502/commodityDetails",
             type: "post",
             data:{"cmdId" : 1},
             dataType: "json",
@@ -178,8 +179,29 @@ $(document).ready(function () {
     },500)
     //立即购买按钮事件
     $('#buyNow').click(function(){
-        console.log($('.num').val())
-        window.top.location.href = '../onlineShopping/person.html?num='+ $('.num').val()
+        let reloadCartAmount = []
+        reloadCartAmount.push({cartId:156,amount:10})
+        console.log(JSON.stringify(reloadCartAmount))
+        $.ajax({
+            url: "http://192.168.0.124:8989/carts/reload/cart",
+            type: "get",
+            dataType: "json",
+            data:{
+                uId:100,
+                reloadCartAmount:JSON.stringify(reloadCartAmount)
+                // uId:100,
+                // reloadCartAmount:JSON.stringify()
+                // reloadCartAmount:JSON.stringify([{"cartId":"156","amount":"3"}])
+            },
+            success: function(data){
+                    // window.top.location.href = 'person.html'
+                    console.log(1)
+            },
+            error: function(){
+                // alert("获取失败");
+            }
+        })
+        
     })
     //加入购物车按钮事件
     $('#addCart').click(function(){    
@@ -194,19 +216,24 @@ $(document).ready(function () {
                 spfId = spfList[i].spfId
             }
             console.log(spfId)
-            $.ajax({
-                url: "http://192.168.0.124:8989/carts/add/to/cart",
-                type: "post",
-                data:{'spfId':spfId,'amount':$('.num').val(),'uId':100},
-                dataType: "json",
-                success: function(data){
-                        if(data == false){
-                            layer.msg("商品没有库存,加入失败");
-                        }
-                },
-                error: function(){
-                    // alert("获取失败");
-                }
-            })
+            if(spfId == ''){
+                layer.msg('请先选择具体规格')
+            }else{
+                $.ajax({
+                    url: "http://192.168.0.124:8989/carts/add/to/cart",
+                    type: "post",
+                    data:{'spfId':spfId,'amount':$('.num').val(),'uId':100},
+                    dataType: "json",
+                    success: function(data){
+                            if(data == false){
+                                layer.msg("商品没有库存,加入失败");
+                            }
+                    },
+                    error: function(){
+                        // alert("获取失败");
+                    }
+                })
+            }
+
     })
 })

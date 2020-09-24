@@ -20,7 +20,7 @@
 <link href="../static/css/person.css" rel="stylesheet">
 
 <script src="../layer/layer.js"></script>
-
+<script src="../static/js/m.js"></script>
 <!-- 时间选择器的引入 -->
 <script src="https://cdn.bootcss.com/moment.js/2.24.0/moment-with-locales.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
@@ -179,7 +179,7 @@
                          <!-- 修改邮箱 -->
                         <div role="tabpanel" class="tab-pane active" id="telphone">
                             <div class="phoneTip">
-                                验证码将发送到手机<span id="star_phone"></span>
+                                验证码将发送到手机<span class="star_phone"></span>
                             </div>
                             <div class="reGetTip">
                                 如果长时间没有收到验证码，请重新获取验证码
@@ -202,18 +202,18 @@
                         <!-- 修改手机 -->
                         <div role="tabpanel2" class="tab-pane" id="email">
                             <div class="phoneTip">
-                                验证码将发送到手机<span id="star_phone"></span>
+                                验证码将发送到手机<span class="star_phone"></span>
                             </div>
                             <div class="reGetTip">
                                 如果长时间没有收到验证码，请重新获取验证码
                             </div>
                             <div>
-                                <span style="width: 90px;text-align: end;">验证码：</span><input type="text" id="code3">
+                                <span style="width: 90px;text-align: end;">验证码：</span><input type="text" id="code4">
                                 <button class="btn btn-small get-code"  id="J_getCode">获取验证码</button>
                                 <button class="btn btn-small reset-code" id="J_resetCode" style="display:none;"><span id="J_second">60</span>秒后重发</button>
                             </div>
                             <div>
-                                <span style="width: 90px;text-align: end;">新的手机号：</span><input type="text" id="person_newPhone3" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+                                <span style="width: 90px;text-align: end;">新的手机号：</span><input type="text" id="person_newPhone3"  maxlength=11 onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
                             </div>
                             <div style="display: flex;justify-content: center">
                                <button class="submitByPhone">提交</button>
@@ -255,12 +255,12 @@
             </div>
             <div class="modal-body">
                 <div>
-                    <h5 style="width: 90px;text-align: end;">验证码：</h5><input type="text" id="code4">
+                    <h5 style="width: 90px;text-align: end;">验证码：</h5><input type="text" id="code2">
                     <button class="btn btn-small get-code modal_getCode"  id="X_getCode">获取验证码</button>
                     <button class="btn btn-small reset-code  modal_resetCode" id="X_resetCode" style="display:none;"><span id="X_second">60</span>秒后重发</button>
                 </div>
                 <div>
-                    <h5 style="width: 90px;text-align: end;">新的手机号：</h5><input type="text" id="person_newPhone4" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'')">
+                    <h5 style="width: 90px;text-align: end;">新的手机号：</h5><input type="text" id="person_newPhone4" maxlength=11  onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'')">
                 </div>
             </div>
             <div class="modal-footer">

@@ -61,7 +61,9 @@ $(document).ready(function () {
       $('.showPerson').hide()
       $('.corretPerson').show()
    })
-   var uId = $.cookie('userId')
+   // var uId = $.cookie('userId')
+   var uId = 1
+   var person_data ={}
    //渲染页面，获取个人信息数据
    function show_myself() {
       $.ajax({
@@ -70,6 +72,7 @@ $(document).ready(function () {
          data: { "uId": uId },
          dataType: "json",
          success: function (data) {
+            person_data = data
             $('#person_headImg').attr('src', data.uheadSculpture);
             $('#image').attr('src', data.uheadSculpture);
             $("#person_name").text(data.uaccount);
@@ -81,7 +84,7 @@ $(document).ready(function () {
             $("#person_phone").text(data.uphoneNumber);
             $("#person_email").text(data.uemail);
             $("#birth").val(data.suBirth);
-            $("#star_phone").text(data.uphoneNumber.replace(/^(\d{3})\d{4}(\d+)/, "$1****$2"))
+            $(".star_phone").text(data.uphoneNumber.replace(/^(\d{3})\d{4}(\d+)/, "$1****$2"))
             if (data.usex === '男') {
                $("#man").attr("checked", "checked")
             } else {
@@ -207,7 +210,6 @@ $(document).ready(function () {
             $('.corretBtn').on('click', function (e) {
                var event = e || window.event;
                adId = event.target.getAttribute('data-adId')
-               console.log(adId, 22)
             })
             //点击修改获取地址信息
             $('.address_bottom_box').on('click', '.address-news', function () {
@@ -294,11 +296,9 @@ $(document).ready(function () {
             var pointA = new BMap.Point(121.66149, 29.890624);  // 创建点坐标A--大渡口区
             var pointB = new BMap.Point(point.lng, point.lat);  // 创建点坐标B--江北区
             if (map.getDistance(pointA, pointB).toFixed(2) > 3000) {
-               console.log(1)
                layer.msg('超出配送范围')
                $('#corretDress').attr('disabled', true)
             } else {
-               console.log(2)
                $('#corretDress').attr('disabled', false)
             }
          } else {
@@ -312,7 +312,7 @@ $(document).ready(function () {
       $.ajax({
          url: "http://192.168.0.77:8080/user/updataPhoneOrNumber",
          type: "post",
-         data: { type: 'number', oldNumber: $('#person_phone').text() },
+         data: { type:'number', oldNumber: person_data.uphoneNumber },
          // dataType: "json",
          success: function (data) {
             layer.msg('获取验证码成功');
@@ -341,23 +341,25 @@ $(document).ready(function () {
    $(".submitByPhone").click(function () {
       if ($('#person_newPhone3').val() == '') {
          layer.alert('请填写手机号');
-      } else if ($('#code').val() == '') {
+      } else if ($('#code4').val() == '') {
          layer.alert('请填写验证码');
       } else {
+         console.log(person_data);
          $.ajax({
             url: "http://192.168.0.77:8080/user/verify",
             type: "post",
-            data: { type: 'email', oldNumber: $('#person_phone').text(), number: $('#person_newPhone3').val(), uId: uId, code: $('#code3').val() },
+            data: {code: $('#code4').val(),type: 'number', oldNumber: person_data.uphoneNumber, number: $('#person_newPhone3').val(), uId: uId,},
             dataType: "json",
             success: function (data) {
-               if (data == false) {
+               if (data == 500) {
                   layer.msg('修改失败');
                } else {
                   layer.msg('修改成功');
                }
             },
          })
-      }
+         }
+
    });
 
 
@@ -366,7 +368,7 @@ $(document).ready(function () {
       $.ajax({
          url: "http://192.168.0.77:8080/user/updataPhoneOrNumber",
          type: "post",
-         data: { type: 'mail', oldMail: $('#person_email').text() },
+         data: { type: 'mail', oldMail: person_data.uemail },
          // dataType: "Xson",
          success: function (data) {
             layer.msg('获取验证码成功');
@@ -395,13 +397,13 @@ $(document).ready(function () {
    $("#submitByEmail").click(function () {
       if ($('#person_newPhone4').val() == '') {
          layer.alert('请填写手机号');
-      } else if ($('#code4').val() == '') {
+      } else if ($('#code2').val() == '') {
          layer.alert('请填写验证码');
       } else {
          $.ajax({
             url: "http://192.168.0.77:8080/user/verify",
             type: "post",
-            data: { type: 'mail', number: $('#person_newPhone4').val(), oldMail: $('#person_email').text(), uId: uId, code: $('#code4').val() },
+            data: { type: 'mail', number: $('#person_newPhone4').val(), oldMail: person_data.uemail, uId: uId, code: $('#code2').val() },
             dataType: "json",
             success: function (data) {
                if (data == 200) {
@@ -420,7 +422,7 @@ $(document).ready(function () {
       $.ajax({
          url: "http://192.168.0.77:8080/user/updataPhoneOrNumber",
          type: "post",
-         data: { type: 'number', oldNumber: $('#person_phone').text() },
+         data: { type: 'number', oldNumber: person_data.uphoneNumber },
          // dataType: "json",
          success: function (data) {
             layer.msg('获取验证码成功');
@@ -455,7 +457,7 @@ $(document).ready(function () {
          $.ajax({
             url: "http://192.168.0.77:8080/user/verify",
             type: "post",
-            data: { type: 'number', mail: $('#person_newMail').val(), oldNumber: $('#person_phone').text(), uId: uId, code: $('#code3').val() },
+            data: { type: 'number', mail: $('#person_newMail').val(), oldNumber: person_data.uphoneNumber, uId: uId, code: $('#code3').val() },
             dataType: "json",
             success: function (data) {
                if (data == false) {
@@ -474,7 +476,7 @@ $(document).ready(function () {
       $.ajax({
          url: "http://192.168.0.77:8080/user/updataPhoneOrNumber",
          type: "post",
-         data: { type: 'mail', oldMail: $('#person_email').text() },
+         data: { type: 'mail', oldMail: person_data.uemail },
          // dataType: "Xson",
          success: function (data) {
             layer.msg('获取验证码成功');
@@ -509,7 +511,7 @@ $(document).ready(function () {
          $.ajax({
             url: "http://192.168.0.77:8080/user/verify",
             type: "post",
-            data: { type: 'mail', mail: $('#person_newMail1').val(), oldMail: $('#person_email').text(), uId: uId, code: $('#code1').val() },
+            data: { type: 'mail', mail: $('#person_newMail1').val(), oldMail: person_data.uemail, uId: uId, code: $('#code1').val() },
             dataType: "json",
             success: function (data) {
                layer.msg('修改成功');
@@ -535,7 +537,7 @@ $(document).ready(function () {
          $.ajax({
             url: "http://192.168.0.77:8080/user/updataUserPassWord",
             type: "post",
-            data: { uId: uId, oldPasd: $('#oldPassword').val(), newPasd: $('#newPassword').val() },
+            data: { uId: uId,mpasd:getpass($('#newPassword').val()) ,oldPasd: $('#oldPassword').val(), newPasd: $('#newPassword').val() },
             dataType: "json",
             success: function (data) {
                layer.msg('修改成功');

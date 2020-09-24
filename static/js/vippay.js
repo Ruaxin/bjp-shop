@@ -1,46 +1,7 @@
 //获取会员套餐
 $(function () {
-    // var data = [{
-    //     num: "1",
-    //     price: "199",
-    //     time: "年",
-    // }, {
-    //     num: "3",
-    //     price: "49",
-    //     time: "月",
-    // },
-    //     {
-    //         num: "1",
-    //         price: "20",
-    //         time: "月",
-    //     }];
-    //
-    // //json地址的值
-    //
-    // // url: "/homePage/shouzhan",
-    // // type: "GET",
-    // // datatype: "json",
-    // function name(data) {
-    //     console.log(data);
-    //     let project = "";
-    //     //循环遍历data的值
-    //     for (var i = 0; i < data.length; i++) {
-    //         //project存储遍历的值 data-id一种传参方式
-    //         project = `<div class="pay-box" data-id="${i + 1}" id="pay${i}">
-    //                             <h3>商城${data[i].num}${data[i].time}VIP</h3>
-    //                             <div class="pay-box-price">
-    //                                 <span class="price">${data[i].price}</span>
-    //                                 <span class="time">元/${data[i].time}</span>
-    //                             </div>`;
-    //         //字符串拼接追加到div中
-    //         $(".pay").append(project);
-    //     }
-    //     //点击获取商品id传值给商品详情页
-    //
-    // }
-    // name(data);
         $.ajax({
-            url: "http://192.168.0.120:8989/bjfMemberPay",
+            url: "http://192.168.0.107:8989/vip/bjfMemberPay",
             type: "GET",
             datatype: "json",
             success: function (data) {
@@ -71,11 +32,13 @@ $(function () {
                 $(".submit").click(function () {
                     console.log(num);
                     $.ajax({
-                        url: "http://192.168.0.120:8989/vipPay",
+                        url: "http://192.168.0.107:8989/vip/vipPay",
                         type: "GET",
                         data: {"mbpId":num,"UId":1},
                         success: function (data) {
-                           //跳转到支付方式界面
+                            console.log(data);
+                            $.cookie('VipOdDelid',data,{expires: 1})
+                            // window.location.href='';
                         }
                     })
                 });
