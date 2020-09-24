@@ -79,8 +79,6 @@ $(function () {
             title: '请先登录',
             showConfirmButton: false,
             timer: 1500
-          }).then(() => {
-            getCouponList()
           })
         } else {
           Swal.fire({
