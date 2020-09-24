@@ -1,9 +1,19 @@
 $(function () {
   let couponList = ``
-  // let id = $.cookie('userId')
-  let id = 1
+  let id = $.cookie('userId')
   let isErrorNum = 1
   let isDialog = true
+
+  const errorMessage = () => {
+    Swal.fire({
+      position: 'top',
+      icon: 'error',
+      title: '网络出错了',
+      width: 400,
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
   // 获取优惠券列表
   const getCouponList = () => {
     $.ajax({
@@ -33,14 +43,7 @@ $(function () {
       },
       error: function () {
         if (isErrorNum !== 1) {
-          Swal.fire({
-            position: 'top',
-            icon: 'error',
-            title: 'aa网络出错了',
-            width: 400,
-            showConfirmButton: false,
-            timer: 1500
-          })
+          errorMessage()
         }
         isErrorNum++
         isDialog = false
@@ -57,28 +60,18 @@ $(function () {
         'uid': id
       },
       dataType: 'json',
-      success: function (data) {
-        console.log(data)
+      success: function () {
         getCouponList()
       },
       error: function () {
-        Swal.fire({
-          position: 'top',
-          icon: 'error',
-          title: '网络出错了',
-          width: 400,
-          showConfirmButton: false,
-          timer: 1500
-        })
+        errorMessage()
       }
     })
   }
   //初始化
   getCouponList()
   $('#couponDialog').click(function () {
-      console.log(isDialog)
       if (!isDialog) {
-        console.log(!id)
         if (!id) {
           Swal.fire({
             position: 'top',
@@ -93,7 +86,7 @@ $(function () {
           Swal.fire({
             position: 'top',
             icon: 'error',
-            title: 'ff网络出错了',
+            title: '网络出错了',
             width: 400,
             showConfirmButton: false,
             timer: 1500
@@ -126,7 +119,6 @@ $(function () {
               $('#couponDialog').click()
             }
           )
-          console.log('已领取')
         })
       }
     }
