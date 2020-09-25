@@ -179,28 +179,62 @@ $(document).ready(function () {
     },500)
     //立即购买按钮事件
     $('#buyNow').click(function(){
-        let reloadCartAmount = []
-        reloadCartAmount.push({cartId:156,amount:10})
-        console.log(JSON.stringify(reloadCartAmount))
-        $.ajax({
-            url: "http://192.168.0.124:8989/carts/reload/cart",
-            type: "get",
-            dataType: "json",
-            data:{
-                uId:100,
-                reloadCartAmount:JSON.stringify(reloadCartAmount)
-                // uId:100,
-                // reloadCartAmount:JSON.stringify()
-                // reloadCartAmount:JSON.stringify([{"cartId":"156","amount":"3"}])
-            },
-            success: function(data){
-                    // window.top.location.href = 'person.html'
-                    console.log(1)
-            },
-            error: function(){
-                // alert("获取失败");
-            }
-        })
+        // $.ajax({
+        //     url: "http://192.168.0.124:8989/carts/reload/cart",
+        //     type: "get",
+        //     dataType: "json",
+        //     data:{
+        //         uId:100,
+        //         amout:'',
+        //         spfId:'',
+        //         // uId:100,
+        //         // reloadCartAmount:JSON.stringify()
+        //         // reloadCartAmount:JSON.stringify([{"cartId":"156","amount":"3"}])
+        //     },
+        //     success: function(data){
+        //             // window.top.location.href = 'person.html'
+        //             console.log(1)
+        //     },
+        //     error: function(){
+        //         // alert("获取失败");
+        //     }
+        // })
+        let selList = [];
+        $(".sel").each(function(i,e){
+            selList[i]= $(this).context.innerText;
+        });
+        let sel = selList.toString(selList)
+        let spfId = ''
+        for(let i = 0;i<spfList.length;i++){
+            if(sel == spfList[i].spfContent.substring(1,spfList[i].spfContent.length-1))
+            spfId = spfList[i].spfId
+        }
+        console.log(spfId)
+        if(spfId == ''){
+            layer.msg('请先选择具体规格')
+        }else{
+            $.ajax({
+                url: "http://192.168.0.124:8989/carts/buy/now",
+                type: "post",
+                data:{
+                    'spfId':spfId,
+                    'amount':$('.num').val(),
+                    'uId':100
+                },
+                dataType: "json",
+                success: function(data){
+                    if(data ==true){
+                        //  window.location.href = '../templates/Login.html'
+                    }else{
+                        layer.msg("选择的商品没有库存或已经下架了")
+                    }
+                       
+                },
+                error: function(){
+                    // alert("获取失败");
+                }
+            })
+        }
         
     })
     //加入购物车按钮事件
